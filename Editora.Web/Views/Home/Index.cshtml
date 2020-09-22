@@ -1,0 +1,23 @@
+﻿@model Editora.Web.Models.Usuario.LoginViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<link rel="stylesheet" href="~/css/signin.css" />
+
+<div class="div-login text-center">
+    <form class="form-signin" asp-action="Index" asp-controller="Home">
+        <img class="mb-4" src="https://br.seaicons.com/wp-content/uploads/2017/03/library-icon-1.png" alt="" width="72" height="72" />
+
+        <h1 class="h3 mb-3 font-weight-normal">Por favor, faça login.</h1>
+
+        <label for="Login" class="sr-only">Login</label>
+        <input type="text" name="Login" class="form-control" placeholder="Login" required autofocus />
+
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="Password" class="form-control" placeholder="Password" required />
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+    </form>
+</div>
