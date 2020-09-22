@@ -11,12 +11,11 @@ namespace Editora.Repository.Mapping
             builder.ToTable("Livro");
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.AutorId).IsRequired();
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Ano).IsRequired();
             builder.Property(x => x.ISBN).IsRequired();
             builder.Property(x => x.Titulo).IsRequired();
-
-            builder.Property(x => x.AutorId).IsRequired();
 
         }
     }

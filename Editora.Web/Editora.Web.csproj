@@ -21,11 +21,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="RestSharp" Version="106.11.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Autor\" />
-    <Folder Include="Models\Livro\" />
+    <Folder Include="Views\Livro\" />
+    <Folder Include="Views\Autor\" />
   </ItemGroup>
 
 </Project>

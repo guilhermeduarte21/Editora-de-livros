@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,31 +18,34 @@
                 <img src="https://br.seaicons.com/wp-content/uploads/2017/03/library-icon-1.png" width="30" height="30" alt="" loading="lazy">
             </a>
 
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Autor
-                        </a>
+            @if (!string.IsNullOrWhiteSpace(Context.Session.GetString("Token")))
+            {
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Autor
+                            </a>
 
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Cadastrar Livro</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Editar Livro</a>
-                        </div>
-                    </li>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Autor" asp-action="Index">Autores</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Autor" asp-action="Create">Cadastrar Autor</a>
+                            </div>
+                        </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Livro
-                        </a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Livro
+                            </a>
 
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Cadastrar Livro</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Editar Livro</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Livro" asp-action="Index">Livros</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Livro" asp-action="Create">Cadastrar Livro</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            }
         </nav>
     </header>
 

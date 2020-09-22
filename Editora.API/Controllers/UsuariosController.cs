@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Editora.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Usuarios")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
@@ -22,7 +22,7 @@ namespace Editora.API.Controllers
         [RequireHttps]
         public IActionResult Token([FromBody] LoginRequest loginRequest)
         {
-            var token = this._usuarioService.Login(loginRequest.Login, loginRequest.Senha);
+            var token = this._usuarioService.Login(loginRequest.Login, loginRequest.Password);
 
             if (String.IsNullOrWhiteSpace(token))
             {
@@ -40,6 +40,6 @@ namespace Editora.API.Controllers
     public class LoginRequest
     {
         public String Login { get; set; }
-        public String Senha { get; set; }
+        public String Password { get; set; }
     }
 }
