@@ -20,12 +20,13 @@ namespace Editora.Web.Controllers
         public IActionResult Index()
         {
             if(!string.IsNullOrWhiteSpace(this.HttpContext.Session.GetString("Token")))
-                return Redirect("Livro/Index");
+                return Redirect("Autor/Index");
 
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Index(LoginViewModel loginViewModel)
         {
             try
@@ -46,7 +47,7 @@ namespace Editora.Web.Controllers
 
                 this.HttpContext.Session.SetString("Token", result.Token);
 
-                return Redirect("Livro/Index");
+                return Redirect("Autor/Index");
             }
             catch
             {

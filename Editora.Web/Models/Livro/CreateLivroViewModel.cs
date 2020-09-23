@@ -1,14 +1,16 @@
 ﻿using Editora.Web.Models.Autor;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Editora.Web.Models.Livro
 {
-    public class LivroViewModel
+    public class CreateLivroViewModel
     {
-        public Guid Id { get; set; }
         public String Titulo { get; set; }
         public String ISBN { get; set; }
         public int Ano { get; set; }
-        public Guid AutorId { get; set; }
+        public AutorViewModel AutorId { get; set; }
     }
 }
