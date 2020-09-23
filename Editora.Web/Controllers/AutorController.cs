@@ -89,18 +89,18 @@ namespace Editora.Web.Controllers
         // POST: AutorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Guid id, FormAutorViewModel formAutorViewModel)
+        public ActionResult Edit(Guid id, AutorViewModel autorViewModel)
         {
             try
             {
                 if (ModelState.IsValid == false)
-                    return View(formAutorViewModel);
+                    return View(autorViewModel);
 
                 var client = new RestClient();
                 var request = new RestRequest(_linkApi + "Autores/" + id, DataFormat.Json);
-                request.AddJsonBody(formAutorViewModel);
+                request.AddJsonBody(autorViewModel);
 
-                var response = client.Put<FormAutorViewModel>(request);
+                var response = client.Put<AutorViewModel>(request);
 
                 return RedirectToAction(nameof(Index));
             }
