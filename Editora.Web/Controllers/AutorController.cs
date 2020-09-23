@@ -14,21 +14,17 @@ namespace Editora.Web.Controllers
 {
     public class AutorController : Controller
     {
-        string _linkApi = "http://localhost:60914/api/";
+        private readonly string _UriAPI = "http://localhost:60914/api/";
 
         // GET: AutorController
         public IActionResult Index()
         {
             var client = new RestClient();
-            var request = new RestRequest(_linkApi + "Autores", DataFormat.Json);
+            var request = new RestRequest(_UriAPI + "Autores");
 
-            //Não esta adicionando o Token no Header Bearer
-            request.AddHeader("authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
+            request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
 
             var response = client.Get<List<AutorViewModel>>(request);
-
-            if (response.Data == null)
-                response.Data = new List<AutorViewModel>();
 
             return View(response.Data);
         }
@@ -37,7 +33,7 @@ namespace Editora.Web.Controllers
         public ActionResult Details(Guid id)
         {
             var client = new RestClient();
-            var request = new RestRequest(_linkApi + "Autores/" + id, DataFormat.Json);
+            var request = new RestRequest(_UriAPI + "Autores/" + id, DataFormat.Json);
 
             var response = client.Get<AutorViewModel>(request);
 
@@ -61,7 +57,7 @@ namespace Editora.Web.Controllers
                     return View(formAutorViewModel);
 
                 var client = new RestClient();
-                var request = new RestRequest(_linkApi + "Autores", DataFormat.Json);
+                var request = new RestRequest(_UriAPI + "Autores", DataFormat.Json);
                 request.AddJsonBody(formAutorViewModel);
 
                 var response = client.Post<FormAutorViewModel>(request);
@@ -79,7 +75,7 @@ namespace Editora.Web.Controllers
         public ActionResult Edit(Guid id)
         {
             var client = new RestClient();
-            var request = new RestRequest(_linkApi + "Autores/" + id, DataFormat.Json);
+            var request = new RestRequest(_UriAPI + "Autores/" + id, DataFormat.Json);
 
             var response = client.Get<AutorViewModel>(request);
 
@@ -97,7 +93,7 @@ namespace Editora.Web.Controllers
                     return View(autorViewModel);
 
                 var client = new RestClient();
-                var request = new RestRequest(_linkApi + "Autores/" + id, DataFormat.Json);
+                var request = new RestRequest(_UriAPI + "Autores/" + id, DataFormat.Json);
                 request.AddJsonBody(autorViewModel);
 
                 var response = client.Put<AutorViewModel>(request);
@@ -114,7 +110,7 @@ namespace Editora.Web.Controllers
         public ActionResult Delete(Guid id)
         {
             var client = new RestClient();
-            var request = new RestRequest(_linkApi + "Autores/" + id, DataFormat.Json);
+            var request = new RestRequest(_UriAPI + "Autores/" + id, DataFormat.Json);
 
             var response = client.Get<AutorViewModel>(request);
 
@@ -129,7 +125,7 @@ namespace Editora.Web.Controllers
             try
             {
                 var client = new RestClient();
-                var request = new RestRequest(_linkApi + "Autores/" + id, DataFormat.Json);
+                var request = new RestRequest(_UriAPI + "Autores/" + id, DataFormat.Json);
                 request.AddJsonBody(autorViewModel);
 
                 var response = client.Delete<FormAutorViewModel>(request);

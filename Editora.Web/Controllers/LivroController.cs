@@ -13,25 +13,30 @@ namespace Editora.Web.Controllers
 {
     public class LivroController : Controller
     {
-        string _linkApi = "http://localhost:60914/api/";
+        string _UriAPI = "http://localhost:60914/api/";
 
         // GET: LivroController
         public IActionResult Index()
         {
             var client = new RestClient();
-            var request = new RestRequest(_linkApi + "Livros");
+            var request = new RestRequest(_UriAPI + "Livros");
 
             request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
 
-            var response = client.Get(request);
+            var response = client.Get<List<LivroViewModel>>(request);
 
-            return View(response.Content);
+            return View(response.Data);
         }
 
         // GET: LivroController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(Guid id)
         {
-            return View();
+            var client = new RestClient();
+            var request = new RestRequest(_UriAPI + "Livros/" + id, DataFormat.Json);
+
+            var response = client.Get<LivroViewModel>(request);
+
+            return View(response.Data);
         }
 
         // GET: LivroController/Create
@@ -43,31 +48,55 @@ namespace Editora.Web.Controllers
         // POST: LivroController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CreateLivroViewModel createLivroViewModel)
         {
             try
             {
+                if (ModelState.IsValid == false)
+                    return View(createLivroViewModel);
+
+                var client = new RestClient();
+                var request = new RestRequest(_UriAPI + "Livros", DataFormat.Json);
+                request.AddJsonBody(createLivroViewModel);
+
+                var response = client.Post<CreateLivroViewModel>(request);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                ModelState.AddModelError(string.Empty, "Ocorreu um erro, por favor tente mais tarde.");
+                return View(createLivroViewModel);
             }
         }
 
         // GET: LivroController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
-            return View();
+            var client = new RestClient();
+            var request = new RestRequest(_UriAPI + "Livros/" + id, DataFormat.Json);
+
+            var response = client.Get<LivroViewModel>(request);
+
+            return View(response.Data);
         }
 
         // POST: LivroController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Guid id, LivroViewModel livroViewModel)
         {
             try
             {
+                if (ModelState.IsValid == false)
+                    return View(livroViewModel);
+
+                var client = new RestClient();
+                var request = new RestRequest(_UriAPI + "Livros/" + id, DataFormat.Json);
+                request.AddJsonBody(livroViewModel);
+
+                var response = client.Put<LivroViewModel>(request);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -77,18 +106,29 @@ namespace Editora.Web.Controllers
         }
 
         // GET: LivroController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Guid id)
         {
-            return View();
+            var client = new RestClient();
+            var request = new RestRequest(_UriAPI + "Livros/" + id, DataFormat.Json);
+
+            var response = client.Get<LivroViewModel>(request);
+
+            return View(response.Data);
         }
 
         // POST: LivroController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(Guid id, LivroViewModel livroViewModel)
         {
             try
             {
+                var client = new RestClient();
+                var request = new RestRequest(_UriAPI + "Livros/" + id, DataFormat.Json);
+                request.AddJsonBody(livroViewModel);
+
+                var response = client.Delete<LivroViewModel>(request);
+
                 return RedirectToAction(nameof(Index));
             }
             catch

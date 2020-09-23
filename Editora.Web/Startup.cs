@@ -48,7 +48,6 @@ namespace Editora.Web
 
             app.UseSession();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
