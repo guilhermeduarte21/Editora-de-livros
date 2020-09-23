@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using RestSharp;
+using Editora.Web.Models.Autor;
 
 namespace Editora.Web.Controllers
 {
@@ -42,7 +43,17 @@ namespace Editora.Web.Controllers
         // GET: LivroController/Create
         public ActionResult Create()
         {
-            return View();
+            var client = new RestClient();
+            var request = new RestRequest(_UriAPI + "Autores");
+
+            var listAutores = client.Get<List<AutorSimplesViewModel>>(request);
+
+            CreateLivroViewModel createLivroViewModel = new CreateLivroViewModel
+            {
+                ListaAutores = listAutores.Data
+            };
+
+            return View(createLivroViewModel);
         }
 
         // POST: LivroController/Create
