@@ -9,7 +9,7 @@ namespace Editora.Web.Controllers
 {
     public class HomeController : Controller
     {
-        string _linkApi = "http://localhost:60914/api/";
+        string _UriAPI = "http://localhost:60914/api/";
 
         public HomeController()
         {
@@ -32,7 +32,7 @@ namespace Editora.Web.Controllers
             try
             {
                 var client = new RestClient();
-                var requestToken = new RestRequest(_linkApi + "Usuarios/Token");
+                var requestToken = new RestRequest(_UriAPI + "Usuarios/Token");
 
                 requestToken.AddJsonBody(JsonConvert.SerializeObject(loginViewModel));
 
