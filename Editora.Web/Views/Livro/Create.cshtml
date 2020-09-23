@@ -4,9 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Create Novo Livro</h1>
 
-<h4>CreateLivroViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -28,9 +27,13 @@
                 <span asp-validation-for="Ano" class="text-danger"></span>
             </div>
 
-            <select asp-for="AutorId"
-                    asp-items="@(new SelectList(Model.ListaAutores,"Id","Nome"))">
-                <option>Please select one</option>
+            <select id="AutorId" name="AutorId">
+                <option>Selecione um Autor</option>
+
+                @foreach (var item in Model.ListaAutores)
+                {
+                    <option value="@item.Id">@item.Nome @item.UltimoNome</option>
+                }
             </select>
 
             <div class="form-group">
@@ -40,9 +43,6 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

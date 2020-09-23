@@ -59,15 +59,23 @@ namespace Editora.Web.Controllers
         // POST: LivroController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateLivroViewModel createLivroViewModel)
+        public ActionResult Create(CreateLivroViewModel createLivroViewModel, Guid AutorId)
         {
             try
             {
                 if (ModelState.IsValid == false)
                     return View(createLivroViewModel);
 
+                var autorClient = new RestClient();
+                var autorRequest = new RestRequest(_UriAPI + "Autores/" + AutorId, DataFormat.Json);
+                var autorResponse = autorClient.Get<AutorViewModel>(autorRequest);
+
+                createLivroViewModel.AutorId = AutorId;
+                createLivroViewModel.Autor = autorResponse.Data;
+
                 var client = new RestClient();
-                var request = new RestRequest(_UriAPI + "Livros", DataFormat.Json);
+                var request = new RestRequest(_UriAPI + "Livros", Method.POST, DataFormat.Json);
+
                 request.AddJsonBody(createLivroViewModel);
 
                 var response = client.Post<CreateLivroViewModel>(request);

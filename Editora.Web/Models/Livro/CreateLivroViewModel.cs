@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Editora.Web.Models.Livro
@@ -15,8 +16,9 @@ namespace Editora.Web.Models.Livro
         public String ISBN { get; set; }
         [Required]
         public int Ano { get; set; }
-        public AutorViewModel AutorId { get; set; }
-        public Guid Id { get; set; }
+        [JsonIgnore]
+        public AutorViewModel Autor { get; set; }
+        public Guid AutorId { get; set; }
         public List<AutorSimplesViewModel> ListaAutores { get; set; }
     }
 }

@@ -75,6 +75,7 @@ namespace Editora.API.Controllers
 
         // POST: api/Livros
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<Livro>> PostLivro(Livro livro)
         {
             _context.Livros.Add(livro);
