@@ -11,11 +11,6 @@ namespace Editora.Web.Controllers
     {
         string _UriAPI = "https://localhost:44356/api/";
 
-        public HomeController()
-        {
-
-        }
-
         [HttpGet]
         public IActionResult Index()
         {
