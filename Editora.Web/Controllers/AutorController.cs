@@ -14,7 +14,7 @@ namespace Editora.Web.Controllers
 {
     public class AutorController : Controller
     {
-        private readonly string _UriAPI = "http://localhost:60914/api/";
+        private readonly string _UriAPI = "https://localhost:44356/api/";
 
         // GET: AutorController
         public IActionResult Index()
@@ -34,6 +34,8 @@ namespace Editora.Web.Controllers
         {
             var client = new RestClient();
             var request = new RestRequest(_UriAPI + "Autores/" + id, DataFormat.Json);
+
+            request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
 
             var response = client.Get<AutorViewModel>(request);
 
@@ -58,6 +60,7 @@ namespace Editora.Web.Controllers
 
                 var client = new RestClient();
                 var request = new RestRequest(_UriAPI + "Autores", DataFormat.Json);
+                request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
                 request.AddJsonBody(formAutorViewModel);
 
                 var response = client.Post<FormAutorViewModel>(request);
@@ -76,7 +79,7 @@ namespace Editora.Web.Controllers
         {
             var client = new RestClient();
             var request = new RestRequest(_UriAPI + "Autores/" + id, DataFormat.Json);
-
+            request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
             var response = client.Get<AutorViewModel>(request);
 
             return View(response.Data);
@@ -94,6 +97,7 @@ namespace Editora.Web.Controllers
 
                 var client = new RestClient();
                 var request = new RestRequest(_UriAPI + "Autores/" + id, DataFormat.Json);
+                request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
                 request.AddJsonBody(autorViewModel);
 
                 var response = client.Put<AutorViewModel>(request);
@@ -111,7 +115,7 @@ namespace Editora.Web.Controllers
         {
             var client = new RestClient();
             var request = new RestRequest(_UriAPI + "Autores/" + id, DataFormat.Json);
-
+            request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
             var response = client.Get<AutorViewModel>(request);
 
             return View(response.Data);
@@ -126,6 +130,7 @@ namespace Editora.Web.Controllers
             {
                 var client = new RestClient();
                 var request = new RestRequest(_UriAPI + "Autores/" + id, DataFormat.Json);
+                request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
                 request.AddJsonBody(autorViewModel);
 
                 var response = client.Delete<FormAutorViewModel>(request);

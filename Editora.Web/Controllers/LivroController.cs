@@ -14,7 +14,7 @@ namespace Editora.Web.Controllers
 {
     public class LivroController : Controller
     {
-        string _UriAPI = "http://localhost:60914/api/";
+        string _UriAPI = "https://localhost:44356/api/";
 
         // GET: LivroController
         public IActionResult Index()
@@ -34,7 +34,7 @@ namespace Editora.Web.Controllers
         {
             var client = new RestClient();
             var request = new RestRequest(_UriAPI + "Livros/" + id, DataFormat.Json);
-
+            request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
             var response = client.Get<LivroViewModel>(request);
 
             return View(response.Data);
@@ -45,7 +45,7 @@ namespace Editora.Web.Controllers
         {
             var client = new RestClient();
             var request = new RestRequest(_UriAPI + "Autores");
-
+            request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
             var listAutores = client.Get<List<AutorSimplesViewModel>>(request);
 
             CreateLivroViewModel createLivroViewModel = new CreateLivroViewModel
@@ -68,6 +68,7 @@ namespace Editora.Web.Controllers
 
                 var autorClient = new RestClient();
                 var autorRequest = new RestRequest(_UriAPI + "Autores/" + AutorId, DataFormat.Json);
+                autorRequest.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
                 var autorResponse = autorClient.Get<AutorViewModel>(autorRequest);
 
                 createLivroViewModel.AutorId = AutorId;
@@ -75,6 +76,7 @@ namespace Editora.Web.Controllers
 
                 var client = new RestClient();
                 var request = new RestRequest(_UriAPI + "Livros", Method.POST, DataFormat.Json);
+                request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
 
                 request.AddJsonBody(createLivroViewModel);
 
@@ -94,7 +96,7 @@ namespace Editora.Web.Controllers
         {
             var client = new RestClient();
             var request = new RestRequest(_UriAPI + "Livros/" + id, DataFormat.Json);
-
+            request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
             var response = client.Get<LivroViewModel>(request);
 
             return View(response.Data);
@@ -112,6 +114,7 @@ namespace Editora.Web.Controllers
 
                 var client = new RestClient();
                 var request = new RestRequest(_UriAPI + "Livros/" + id, DataFormat.Json);
+                request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
                 request.AddJsonBody(livroViewModel);
 
                 var response = client.Put<LivroViewModel>(request);
@@ -129,7 +132,7 @@ namespace Editora.Web.Controllers
         {
             var client = new RestClient();
             var request = new RestRequest(_UriAPI + "Livros/" + id, DataFormat.Json);
-
+            request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
             var response = client.Get<LivroViewModel>(request);
 
             return View(response.Data);
@@ -144,6 +147,7 @@ namespace Editora.Web.Controllers
             {
                 var client = new RestClient();
                 var request = new RestRequest(_UriAPI + "Livros/" + id, DataFormat.Json);
+                request.AddHeader("Authorization", "Bearer " + this.HttpContext.Session.GetString("Token"));
                 request.AddJsonBody(livroViewModel);
 
                 var response = client.Delete<LivroViewModel>(request);

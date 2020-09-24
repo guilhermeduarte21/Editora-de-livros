@@ -9,7 +9,7 @@ namespace Editora.Web.Controllers
 {
     public class HomeController : Controller
     {
-        string _UriAPI = "http://localhost:60914/api/";
+        string _UriAPI = "https://localhost:44356/api/";
 
         public HomeController()
         {

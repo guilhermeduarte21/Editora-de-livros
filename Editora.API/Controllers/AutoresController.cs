@@ -12,6 +12,7 @@ namespace Editora.API.Controllers
 {
     [Route("api/Autores")]
     [ApiController]
+    [Authorize]
     public class AutoresController : ControllerBase
     {
         private readonly EditoraContext _context;
